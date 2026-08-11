@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>দ্বিতীয় প্রান্তিক মূল্যায়ন - ৫ম শ্রেণির গণিত</title>
+    <!-- Google Fonts for Bengali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg-color: #092c4e;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans Bengali', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Sticky Navigation Bar */
+        header.sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, #4f46e5, #06b6d4);
+            color: white;
+            box-shadow: var(--shadow-lg);
+            padding: 12px 20px;
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .header-container {
+                flex-direction: row;
+            }
+        }
+
+        .header-title h1 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .header-title p {
+            font-size: 0.65rem;
+            opacity: 0.9;
+            text-align: center;
+        }
+        .header-title h1, .header-title p {
+            color: white;
+        }
+        .header-title p{
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+        .header-title h1{
+            font-size: 25px;
+        }
+        .header-title
+        nav.nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 6px 8px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Container & Section Styles */
+        .container {
+            max-width: 1100px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #e0e7ff;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge {
+            background-color: #e0e7ff;
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Score Board for MCQ */
+        .score-board {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* MCQ Grid */
+        .mcq-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .mcq-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .mcq-card {
+            background: #fafafa;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .mcq-question {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: #f4f4ff;
+        }
+
+        .option-btn.correct {
+            background: #dcfce7 !important;
+            border-color: var(--success) !important;
+            color: #15803d !important;
+            font-weight: 600;
+        }
+
+        .option-btn.wrong {
+            background: #fee2e2 !important;
+            border-color: var(--danger) !important;
+            color: #b91c1c !important;
+        }
+
+        .mcq-explanation {
+            display: none;
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #1e40af;
+            margin-top: 8px;
+        }
+
+        /* Fill in the Blanks */
+        .fib-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .fib-item {
+            background: #fcfcfc;
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .fib-question {
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.8;
+        }
+
+        .blank-box {
+            display: inline-block;
+            min-width: 70px;
+            padding: 2px 10px;
+            margin: 0 4px;
+            border-bottom: 2px dashed var(--primary);
+            background: #f1f5f9;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .action-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toggle-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .toggle-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .answer-box {
+            display: none;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Short Questions */
+        .sq-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .sq-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .sq-card {
+            background: #fafafa;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sq-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        /* Subjective / Creative Questions */
+        .creative-q-card {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .cq-header {
+            background: #f1f5f9;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #0f172a;
+            margin-bottom: 16px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .sub-q-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 12px;
+        }
+
+        .sub-q-box {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .sub-q-text {
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .solution-details {
+            display: none;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .solution-details .step {
+            margin-bottom: 6px;
+        }
+
+        .highlight-ans {
+            color: #0d9488;
+            font-weight: 700;
+        }
+
+        /* SVG Diagrams Container */
+        .svg-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+            overflow-x: auto;
+        }
+
+        /* Image Upload Area */
+        .upload-area {
+            margin-top: 15px;
+            padding: 15px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            text-align: center;
+            background: #fafafa;
+        }
+
+        .upload-area input[type="file"] {
+            display: none;
+        }
+
+        .upload-btn-label {
+            display: inline-block;
+            background: #0284c7;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .upload-preview {
+            max-width: 100%;
+            max-height: 250px;
+            margin-top: 10px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navigation Header -->
+    <header class="sticky-header">
+        <div class="header-container">
+            <nav class="nav-links">
+                <a href="#section-mcq" class="nav-btn">বহুনির্বাচনী</a>
+                <a href="#section-fib" class="nav-btn">শূন্যস্থান</a>
+                <a href="#section-short" class="nav-btn">সংক্ষিপ্ত প্রশ্ন</a>
+                <a href="#section-creative" class="nav-btn">রচনামূলক</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="header-title">
+            <h1>২য় প্রান্তিক মূল্যায়ন — ৫ম শ্রেণির গণিত</h1>
+            <p>স্পেশাল মডেল টেস্ট (ইন্টারেক্টিভ ডিজিটাল প্রশ্নপত্র ও সমাধান)</p>
+        </div>
+        
+        <!-- SECTION 1: MCQ QUIZ -->
+        <section id="section-mcq" class="section-card">
+            <div class="section-header">
+                <div class="section-title">
+                    <span>১। সঠিক উত্তরটি খাতায় লেখো:</span>
+                    <span class="badge">১০ টি প্রশ্ন</span>
+                </div>
+                <div class="score-board">
+                    <span>স্কোর: <span id="mcq-score">০</span>/১০</span>
+                </div>
+            </div>
+
+            <div class="mcq-container" id="mcq-grid">
+                <!-- MCQ Items populated by JS -->
+            </div>
+        </section>
+
+
+        <!-- SECTION 2: FILL IN THE BLANKS -->
+        <section id="section-fib" class="section-card">
+            <div class="section-header">
+                <div class="section-title">
+                    <span>২। শূন্যস্থান পূরণ কর:</span>
+                    <span class="badge">৫ টি প্রশ্ন</span>
+                </div>
+            </div>
+
+            <div class="fib-list" id="fib-grid">
+                <!-- FIB Items populated by JS -->
+            </div>
+        </section>
+
+
+        <!-- SECTION 3: SHORT QUESTIONS -->
+        <section id="section-short" class="section-card">
+            <div class="section-header">
+                <div class="section-title">
+                    <span>৩। সংক্ষেপে প্রশ্নের উত্তর দাও:</span>
+                    <span class="badge">১০ টি প্রশ্ন</span>
+                </div>
+            </div>
+
+            <div class="sq-grid" id="sq-grid">
+                <!-- Short Questions populated by JS -->
+            </div>
+        </section>
+
+
+        <!-- SECTION 4: CREATIVE / SUBJECTIVE QUESTIONS -->
+        <section id="section-creative" class="section-card">
+            <div class="section-header">
+                <div class="section-title">
+                    <span>৪। যেকোনো ৪ টি প্রশ্নের উত্তর দাও:</span>
+                    <span class="badge">সৃজনশীল / কাঠামোগত</span>
+                </div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="creative-q-card">
+                <div class="cq-header">১. একটি আয়তাকার শ্রেণিকক্ষের প্রস্থ ৭.৫ মিটার এবং ক্ষেত্রফল ৭৮.৭৫ বর্গমি.।</div>
+                <div class="sub-q-container">
+                    <div class="sub-q-box">
+                        <div class="sub-q-text">(ক) শ্রেণিকক্ষটির দৈর্ঘ্য কত?</div>
+                        <div class="action-row">
+                            <button class="toggle-btn" onclick="toggleSolution('cq1a')">উত্তর ও সমাধান দেখুন</button>
+                        </div>
+                        <div class="solution-details" id="cq1a">
+                            <div class="step">আমরা জানি, আয়তক্ষেত্রের ক্ষেত্রফল = দৈর্ঘ্য × প্রস্থ</div>
+                            <div class="step">∴ দৈর্ঘ্য = ক্ষেত্রফল ÷ প্রস্থ</div>
+                            <div class="step">= ৭৮.৭৫ ÷ ৭.৫ = ১০.৫ মিটার।</div>
+                            <div class="step highlight-ans">উত্তর: ১০.৫ মিটার।</div>
+                        </div>
+                    </div>
+
+                    <div class="sub-q-box">
+                        <div class="sub-q-text">(খ) শ্রেণিকক্ষটির প্রস্থ ২ মিটার বাড়ালে ক্ষেত্রফল কত হবে?</div>
+                        <div class="action-row">
+                            <button class="toggle-btn" onclick="toggleSolution('cq1b')">উত্তর ও সমাধান দেখুন</button>
+                        </div>
+                        <div class="solution-details" id="cq1b">
+                            <div class="step">প্রস্থ ২ মিটার বাড়ালে নতুন প্রস্থ = (৭.৫ + ২) = ৯.৫ মিটার।</div>
+                            <div class="step">(ক) হতে প্রাপ্ত দৈর্ঘ্য = ১০.৫ মিটার।</div>
+                            <div class="step">∴ নতুন ক্ষেত্রফল = ১০.৫ × ৯.৫ = ৯৯.৭৫ বর্গমিটার।</div>
+                            <div class="step highlight-ans">উত্তর: ৯৯.৭৫ বর্গমিটার।</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="creative-q-card">
+                <div class="cq-header">২. ব্যাংক থেকে বার্ষিক ১২.৫% মুনাফায় ৩ বছরের জন্য ৫০০০ টাকা ঋণ নেওয়া হলো।</div>
+                <div class="sub-q-container">
+                    <div class="sub-q-box">
+                        <div class="sub-q-text">(ক) ৩ বছরের মুনাফা কত হবে?</div>
+                        <div class="action-row">
+                            <button class="toggle-btn" onclick="toggleSolution('cq2a')">উত্তর ও সমাধান দেখুন</button>
+                        </div>
+                        <div class="solution-details" id="cq2a">
+                            <div class="step">এখানে, আসল (P) = ৫০০০ টাকা</div>
+                            <div class="step">মুনাফার হার (R) = ১২.৫% = ১২.৫/১০০</div>
+                            <div class="step">সময় (N) = ৩ বছর</div>
+                            <div class="step">∴ মুনাফা = আসল × হার × সময় = ৫০০০ × (১২.৫/১০০) × ৩ = ৫০ × ১২.৫ × ৩ = ১৮৭৫ টাকা।</div>
+                            <div class="step highlight-ans">উত্তর: ১৮৭৫ টাকা।</div>
+                        </div>
+                    </div>
+
+                    <div class="sub-q-box">
+                        <div class="sub-q-text">(খ) ৩ বছর পর মোট কত টাকা পরিশোধ করতে হবে?</div>
+                        <div class="action-row">
+                            <button class="toggle-btn" onclick="toggleSolution('cq2b')">উত্তর ও সমাধান দেখুন</button>
+                        </div>
+                        <div class="solution-details" id="cq2b">
+                            <div class="step">মোট পরিশোধযোগ্য টাকা (মুনাফা-আসল) = আসল + মুনাফা</div>
+                            <div class="step">= ৫০০০ + ১৮৭৫ = ৬৮৭৫ টাকা।</div>
+                            <div class="step highlight-ans">উত্তর: ৬৮৭৫ টাকা।</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="creative-q-card">
+                <div class="cq-header">৩. নিচে আকৃতিটির ক্ষেত্রফল নির্ণয় করো:</div>
+                <p style="margin-bottom:10px; color:#475569; font-size:0.9rem;">
+                    (চিত্র বিবরণ: একটি আয়তক্ষেত্র ও সংলগ্ন সমকোণী ত্রিভুজ; আয়তক্ষেত্রের প্রস্থ ৪ সে.মি., দৈর্ঘ্য ৭ সে.মি. এবং মোট ভূমির দৈর্ঘ্য ১৩ সে.মি.)
+                </p>
+
+                <!-- SVG Diagram -->
+                <div class="svg-container">
+                    <svg width="340" height="180" viewBox="0 0 340 180" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Rectangle -->
+                        <rect x="30" y="40" width="140" height="90" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+                        <!-- Triangle -->
+                        <polygon points="170,40 170,130 290,130" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                        
+                        <!-- Labels -->
+                        <!-- Height -->
+                        <text x="15" y="90" fill="#334155" font-size="12" font-weight="bold">৪ সে.মি.</text>
+                        <!-- Rectangle Base -->
+                        <text x="85" y="150" fill="#4f46e5" font-size="12" font-weight="bold">৭ সে.মি.</text>
+                        <!-- Triangle Base -->
+                        <text x="215" y="150" fill="#d97706" font-size="12" font-weight="bold">৬ সে.মি.</text>
+                        <!-- Total Base Line -->
+                        <line x1="30" y1="165" x2="290" y2="165" stroke="#000" stroke-width="1.5" stroke-dasharray="4"/>
+                        <text x="140" y="178" fill="#000" font-size="12" font-weight="bold">মোট ভূমি = ১৩ সে.মি.</text>
+                    </svg>
+                </div>
+
+                <div class="sub-q-container">
+                    <div class="sub-q-box">
+                        <div class="sub-q-text">(ক) আয়তক্ষেত্রের ক্ষেত্রফল কত বর্গসে.মি.?</div>
+                        <div class="action-row">
+                            <button class="toggle-btn" onclick="toggleSolution('cq3a')">উত্তর ও সমাধান দেখুন</button>
+                        </div>
+                        <div class="solution-details" id="cq3a">
+                            <div class="step">আয়তক্ষেত্রের দৈর্ঘ্য = ৭ সে.মি.</div>
+                            <div class="step">আয়তক্ষেত্রের প্রস্থ = ৪ সে.মি.</div>
+                            <div class="step">∴ আয়তক্ষেত্রের ক্ষেত্রফল = (দৈর্ঘ্য × প্রস্থ) = ৭ × ৪ = ২৮ বর্গ সে.মি.।</div>
+                            <div class="step highlight-ans">উত্তর: ২৮ বর্গ সে.মি.।</div>
+                        </div>
+                    </div>
+
+                    <div class="sub-q-box">
+                        <div class="sub-q-text">(খ) আকৃতিটির মোট ক্ষেত্রফল কত?</div>
+                        <div class="action-row">
+                            <button class="toggle-btn" onclick="toggleSolution('cq3b')">উত্তর ও সমাধান দেখুন</button>
+                        </div>
+                        <div class="solution-details" id="cq3b">
+                            <div class="step">সংলগ্ন ত্রিভুজটির ভূমির দৈর্ঘ্য = মোট ভূমি - আয়তক্ষেত্রের ভূমি = ১৩ - ৭ = ৬ সে.মি.।</div>
+                            <div class="step">ত্রিভুজটির উচ্চতা = ৪ সে.মি.।</div>
+                            <div class="step">∴ ত্রিভুজক্ষেত্রের ক্ষেত্রফল = (ভূমি × উচ্চতা) ÷ ২ = (৬ × ৪) ÷ ২ = ১২ বর্গ সে.মি.।</div>
+                            <div class="step">∴ আকৃতিটির মোট ক্ষেত্রফল = আয়তক্ষেত্রের ক্ষেত্রফল + ত্রিভুজের ক্ষেত্রফল = ২৮ + ১২ = ৪০ বর্গ সে.মি.।</div>
+                            <div class="step highlight-ans">উত্তর: ৪০ বর্গ সে.মি.।</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="creative-q-card">
+                <div class="cq-header">৪. নূরী ও মেহেরী দুই ভাইবোন। নূরীর বয়স ১৩ বছর ৫ মাস এবং মেহেরীর বয়স ৮ বছর ৮ মাস।</div>
+                <div class="sub-q-container">
+                    <div class="sub-q-box">
+                        <div class="sub-q-text">(ক) দুজনের বয়সের পার্থক্য কত?</div>
+                        <div class="action-row">
+                            <button class="toggle-btn" onclick="toggleSolution('cq4a')">উত্তর ও সমাধান দেখুন</button>
+                        </div>
+                        <div class="solution-details" id="cq4a">
+                            <div class="step">নূরীর বয়স = ১৩ বছর ৫ মাস = ১২ বছর ১৭ মাস (যেহেতু ১ বছর = ১২ মাস, ১৩ বছর থেকে ১ বছর যোগ করা হলো)</div>
+                            <div class="step">মেহেরীর বয়স = ৮ বছর ৮ মাস</div>
+                            <div class="step">─────────────────────────</div>
+                            <div class="step">বয়সের পার্থক্য = (১২ - ৮) বছর (১৭ - ৮) মাস = ৪ বছর ৯ মাস।</div>
+                            <div class="step highlight-ans">উত্তর: ৪ বছর ৯ মাস।</div>
+                        </div>
+                    </div>
+
+                    <div class="sub-q-box">
+                        <div class="sub-q-text">অথবা, ১০০০ ঘণ্টাকে মাস, দিন এবং ঘণ্টায় প্রকাশ করো।</div>
+                        <div class="action-row">
+                            <button class="toggle-btn" onclick="toggleSolution('cq4or')">উত্তর ও সমাধান দেখুন</button>
+                        </div>
+                        <div class="solution-details" id="cq4or">
+                            <div class="step">আমরা জানি, ২৪ ঘণ্টা = ১ দিন এবং ৩০ দিন = ১ মাস।</div>
+                            <div class="step">১. ঘণ্টাকে দিনে রূপান্তর: ১০০০ ÷ ২৪ = ৪১ দিন, অবশিষ্ট ১৬ ঘণ্টা।</div>
+                            <div class="step">২. দিনকে মাসে রূপান্তর: ৪১ ÷ ৩০ = ১ মাস, অবশিষ্ট ১১ দিন।</div>
+                            <div class="step highlight-ans">উত্তর: ১ মাস ১১ দিন ১৬ ঘণ্টা।</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5: Geometry -->
+            <div class="creative-q-card">
+                <div class="cq-header">৫. জ্যামিতি: একটি বৃত্তের কেন্দ্রগামী জ্যা এর দৈর্ঘ্য ৬ সে.মি.।</div>
+                
+                <!-- SVG Circle Diagram -->
+                <div class="svg-container">
+                    <svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Circle -->
+                        <circle cx="120" cy="120" r="80" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+                        <!-- Center Point -->
+                        <circle cx="120" cy="120" r="4" fill="#15803d"/>
+                        <text x="125" y="115" fill="#15803d" font-size="13" font-weight="bold">O (কেন্দ্র)</text>
+                        <!-- Diameter Line -->
+                        <line x1="40" y1="120" x2="200" y2="120" stroke="#dc2626" stroke-width="2"/>
+                        <!-- Points A and B -->
+                        <circle cx="40" cy="120" r="3" fill="#dc2626"/>
+                        <text x="25" y="125" fill="#dc2626" font-size="13" font-weight="bold">ক</text>
+                        <circle cx="200" cy="120" r="3" fill="#dc2626"/>
+                        <text x="208" y="125" fill="#dc2626" font-size="13" font-weight="bold">খ</text>
+                        <!-- Diameter Label -->
+                        <text x="75" y="140" fill="#dc2626" font-size="12" font-weight="bold">ব্যাস (কখ) = ৬ সে.মি.</text>
+                    </svg>
+                </div>
+
+                <!-- Custom Image Upload Fallback -->
+                <div class="upload-area">
+                    <p style="font-size:0.9rem; color:#475569; margin-bottom:8px;">আপনি চাইলে নিজস্ব জ্যামিতিক চিত্রের ছবি এখানে আপলোড করতে পারেন:</p>
+                    <label class="upload-btn-label" for="circle-img-input">📷 ছবি আপলোড করুন</label>
+                    <input type="file" id="circle-img-input" accept="image/*" onchange="previewUserImage(event)">
+                    <br>
+                    <img id="circle-preview" class="upload-preview" alt="User Drawing Preview">
+                </div>
+
+                <div class="sub-q-container">
+                    <div class="sub-q-box">
+                        <div class="sub-q-text">(ক) বিবরণসহ বৃত্তটি অঙ্কন করো।</div>
+                        <div class="action-row">
+                            <button class="toggle-btn" onclick="toggleSolution('cq5a')">উত্তর ও বিবরণ দেখুন</button>
+                        </div>
+                        <div class="solution-details" id="cq5a">
+                            <div class="step"><strong>অঙ্কনের বিবরণ:</strong></div>
+                            <div class="step">১. যেহেতু কেন্দ্রগামী জ্যা-ই হলো বৃত্তের ব্যাস, তাই ব্যাস = ৬ সে.মি.।</div>
+                            <div class="step">২. বৃত্তের ব্যাসার্ধ = (৬ ÷ ২) = ৩ সে.মি.।</div>
+                            <div class="step">৩. রুলার ও কম্পাসের সাহায্যে ৩ সে.মি. ব্যাসার্ধ নিয়ে 'O' (ও) বিন্দুকে কেন্দ্র করে একটি বৃত্ত আঁকি।</div>
+                            <div class="step">৪. কেন্দ্র 'O' গামী একটি সরলরেখাংশ 'কখ' আঁকি। চিত্রানুসারে 'কখ' হলো ৬ সে.মি. দীর্ঘ কেন্দ্রগামী জ্যা (ব্যাস)।</div>
+                        </div>
+                    </div>
+
+                    <div class="sub-q-box">
+                        <div class="sub-q-text">(খ) অঙ্কিত বৃত্তের তিনটি বৈশিষ্ট্য লেখো।</div>
+                        <div class="action-row">
+                            <button class="toggle-btn" onclick="toggleSolution('cq5b')">উত্তর ও বৈশিষ্ট্য দেখুন</button>
+                        </div>
+                        <div class="solution-details" id="cq5b">
+                            <div class="step"><strong>অঙ্কিত বৃত্তের ৩টি বৈশিষ্ট্য:</strong></div>
+                            <div class="step">১. এটি একটি সম্পূর্ণ আবদ্ধ বক্ররেখা, যার প্রতিটি বিন্দু কেন্দ্র থেকে সমান দূরত্বে অবস্থিত।</div>
+                            <div class="step">২. বৃত্তের কেন্দ্রগামী জ্যা-ই বৃহত্তম জ্যা, যা বৃত্তের ব্যাস (এখানে ব্যাস = ৬ সে.মি.)।</div>
+                            <div class="step">৩. বৃত্তটির ব্যাসার্ধ হলো ব্যাসের অর্ধেক, অর্থাৎ ৩ সে.মি.।</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <footer>
+        <p>© ২০২৬ ৫ম শ্রেণির গণিত মডেল টেস্ট | ডিজিটাল ইন্টারেক্টিভ লার্নিং</p>
+    </footer>
+
+    <!-- JavaScript logic -->
+    <script>
+        // MCQ Data Structure
+        const mcqData = [
+            {
+                q: "১) ৩/৫ এর সমতুল ভগ্নাংশ নিচের কোনটি?",
+                options: ["(i) ৬/১৫", "(ii) ১২/২৫", "(iii) ৯/১৮", "(iv) ২১/৩৫"],
+                ans: 3,
+                exp: "ব্যাখ্যা: ৩/৫ এর লব ও হরকে ৭ দিয়ে গুণ করলে (৩×৭)/(৫×৭) = ২১/৩৫ পাওয়া যায়।"
+            },
+            {
+                q: "২) ৩৫/৪২ এর লঘিষ্ঠরূপ হলো—",
+                options: ["(i) ৬/৫", "(ii) ৫/৬", "(iii) ৫/৭", "(iv) ৩/৮"],
+                ans: 1,
+                exp: "ব্যাখ্যা: ৩৫ ও ৪২ উভয়কে ৭ দ্বারা ভাগ করলে পাওয়া যায় ৫/৬।"
+            },
+            {
+                q: "৩) ৮৭ × ০.০০১ = কত?",
+                options: ["(i) ৮.৭০", "(ii) ৮৭.০০", "(iii) ০.৮৭", "(iv) ০.০৮৭"],
+                ans: 3,
+                exp: "ব্যাখ্যা: ৮৭ × ১ = ৮৭। গুণের ক্ষেত্রে ৩ ঘর আগে দশমিক বসায় উত্তর ০.০৮৭।"
+            },
+            {
+                q: "৪) কতগুলো ০.১ দ্বারা ৩.৫ হয়?",
+                options: ["(i) ৩৫", "(ii) ৪০", "(iii) ৩৭", "(iv) ৪৫"],
+                ans: 0,
+                exp: "ব্যাখ্যা: ৩.৫ ÷ ০.১ = ৩৫। সুতরাং ৩৫টি ০.১ প্রয়োজন।"
+            },
+            {
+                q: "৫) ১/৪ এর দশমিক ভগ্নাংশটি কোনটি?",
+                options: ["(i) ০.২", "(ii) ০.২৫", "(iii) ০.৫", "(iv) ০.৭৫"],
+                ans: 1,
+                exp: "ব্যাখ্যা: ১ কে ৪ দিয়ে ভাগ করলে উত্তর হয় ০.২৫।"
+            },
+            {
+                q: "৬) ১০০% এর অর্থ ১ হলে ১৫০% এর মান কত?",
+                options: ["(i) ১৫", "(ii) ১.৫", "(iii) ০.১৫", "(iv) ০.০১৫"],
+                ans: 1,
+                exp: "ব্যাখ্যা: ১৫০% = ১৫০/১০০ = ১.৫।"
+            },
+            {
+                q: "৭) একটি সংখ্যার ৫০%, ৬ হলে সংখ্যাটি কত?",
+                options: ["(i) ১২", "(ii) ২৪", "(iii) ৩০", "(iv) ৪০"],
+                ans: 0,
+                exp: "ব্যাখ্যা: ৫০% মানে অর্ধেক। অর্ধেক যদি ৬ হয় তবে পূর্ণ সংখ্যাটি ৬ × ২ = ১২।"
+            },
+            {
+                q: "৮) যদি বৃত্তের ব্যাস ১২ সে.মি. হয় তবে ব্যাসার্ধ কত?",
+                options: ["(i) ২৪", "(ii) ৬", "(iii) ১৮", "(iv) ১২"],
+                ans: 1,
+                exp: "ব্যাখ্যা: ব্যাসার্ধ = ব্যাস ÷ ২ = ১২ ÷ ২ = ৬ সে.মি.।"
+            },
+            {
+                q: "৯) একটি চতুর্ভুজের কর্ণ কয়টি?",
+                options: ["(i) ২", "(ii) ৪", "(iii) ১", "(iv) ৩"],
+                ans: 0,
+                exp: "ব্যাখ্যা: যেকোনো চতুর্ভুজের কর্ণ সংখ্যা ২টি।"
+            },
+            {
+                q: "১০) ১ হেক্টর সমান কত এয়র?",
+                options: ["(i) ১০", "(ii) ১০০", "(iii) ১০০০", "(iv) ১০০০০"],
+                ans: 1,
+                exp: "ব্যাখ্যা: পরিমাপের নিয়ম অনুযায়ী ১ হেক্টর = ১০০ এয়র।"
+            }
+        ];
+
+        // Fill in the Blanks Data
+        const fibData = [
+            {
+                q: "১) এক সহস্রাংশ = <span class='blank-box'>?</span>",
+                ans: "০.০০১ (বা ১/১০০০)",
+                exp: "সহস্রাংশ মানে ১০০০ ভাগের ১ ভাগ।"
+            },
+            {
+                q: "২) ১৮ ÷ ১.২ = (১৮ ÷ ১২) × <span class='blank-box'>?</span> = <span class='blank-box'>?</span>",
+                ans: "প্রথম বক্স: ১০, দ্বিতীয় বক্স: ১৫",
+                exp: "১৮ ÷ ১.২ = (১৮ ÷ ১২) × ১০ = ১.৫ × ১০ = ১৫।"
+            },
+            {
+                q: "৩) <span class='blank-box'>?</span> টি লিচুর ৫৬% হলো ৪২টি লিচু।",
+                ans: "৭৫ টি",
+                exp: "মোট লিচু = ৪২ ÷ ০.৫৬ = ৭৫ টি।"
+            },
+            {
+                q: "৪) সামান্তরিকের ক্ষেত্রফল = <span class='blank-box'>?</span> বর্গ একক",
+                ans: "ভূমি × উচ্চতা",
+                exp: "সামান্তরিকের ক্ষেত্রফলের সূত্র = ভূমি × উচ্চতা।"
+            },
+            {
+                q: "৫) পরিধির একটি অংশ হলো <span class='blank-box'>?</span>",
+                ans: "বৃত্তচাপ (বা চাপ)",
+                exp: "বৃত্তের পরিধির যেকোনো অংশকে চাপ বা বৃত্তচাপ বলা হয়।"
+            }
+        ];
+
+        // Short Questions Data
+        const sqData = [
+            { q: "১) ০.১২৫ কে সাধারণ ভগ্নাংশে প্রকাশ করো?", a: "১/৮", exp: "০.১২৫ = ১২৫/১০০০ = ১/৮।" },
+            { q: "২) ১৬টি তারের দৈর্ঘ্য ৩৮.৪ মিটার হলে প্রত্যেকটি তারের দৈর্ঘ্য কত?", a: "২.৪ মিটার", exp: "৩৮.৪ ÷ ১৬ = ২.৪ মিটার।" },
+            { q: "৩) ০.০০৩ কে শতকরায় প্রকাশ কর?", a: "০.৩%", exp: "০.০০৩ × ১০০% = ০.৩%।" },
+            { q: "৪) মুনাফার হার ৮% বলতে কি বোঝায়?", a: "১০০ টাকার ১ বছরের মুনাফা ৮ টাকা।", exp: "বার্ষিক হার মানে প্রতি ১০০ টাকায় ১ বছরের মুনাফা।" },
+            { q: "৫) ৭৪% কে দশমিক ভগ্নাংশে প্রকাশ কর?", a: "০.৭৪", exp: "৭৪% = ৭৪/১০০ = ০.৭৪।" },
+            { q: "৬) লাভ বা ক্ষতি সবসময় কিসের উপর নির্ভর করে?", a: "ক্রয়মূল্যের উপর।", exp: "লাভ বা ক্ষতির হিসাব সর্বদা ক্রয়মূল্যের ভিত্তিতে করা হয়।" },
+            { q: "৭) রম্বসের বিপরীত বাহু ও কোণ কেমন?", a: "বিপরীত বাহুগুলো সমান ও সমান্তরাল এবং বিপরীত কোণগুলো পরস্পর সমান।", exp: "রম্বসের চার বাহু সমান হলেও কোণগুলো সমকোণ নয়।" },
+            { q: "৮) বৃত্তের ব্যাস ব্যাসার্ধের কত গুণ?", a: "২ গুণ।", exp: "ব্যাস = ২ × ব্যাসার্ধ।" },
+            { q: "৯) রম্বসের একটি কোণ সমকোণ হলে তাকে কী বলে?", a: "বর্গক্ষেত্র।", exp: "রম্বসের সব বাহু সমান, তাই একটি কোণ সমকোণ হলে তা বর্গে পরিণত হয়।" },
+            { q: "১০) ত্রিভুজক্ষেত্রের ক্ষেত্রফল নির্ণয়ের সূত্রটি লেখ?", a: "(ভূমি × উচ্চতা) ÷ ২ বর্গ একক", exp: "ত্রিভুজের ক্ষেত্রফল = ১/২ × ভূমি × উচ্চতা।" }
+        ];
+
+        // Render MCQ
+        let userScore = 0;
+        const mcqGrid = document.getElementById('mcq-grid');
+        mcqData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'mcq-card';
+            card.innerHTML = `
+                <div>
+                    <div class="mcq-question">${item.q}</div>
+                    <div class="options-list" id="opt-list-${index}">
+                        ${item.options.map((opt, optIndex) => `
+                            <button class="option-btn" onclick="checkMcq(${index}, ${optIndex})">${opt}</button>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="mcq-explanation" id="exp-${index}">${item.exp}</div>
+            `;
+            mcqGrid.appendChild(card);
+        });
+
+        function checkMcq(qIndex, selectedOpt) {
+            const optList = document.getElementById(`opt-list-${qIndex}`);
+            const buttons = optList.getElementsByClassName('option-btn');
+            const expBox = document.getElementById(`exp-${qIndex}`);
+
+            // Disable all buttons in this question
+            for (let btn of buttons) {
+                btn.disabled = true;
+            }
+
+            const correctOpt = mcqData[qIndex].ans;
+            if (selectedOpt === correctOpt) {
+                buttons[selectedOpt].classList.add('correct');
+                userScore++;
+                document.getElementById('mcq-score').innerText = userScore;
+            } else {
+                buttons[selectedOpt].classList.add('wrong');
+                buttons[correctOpt].classList.add('correct');
+            }
+
+            expBox.style.display = 'block';
+        }
+
+        // Render Fill in the Blanks
+        const fibGrid = document.getElementById('fib-grid');
+        fibData.forEach((item, index) => {
+            const fibCard = document.createElement('div');
+            fibCard.className = 'fib-item';
+            fibCard.innerHTML = `
+                <div class="fib-question">${item.q}</div>
+                <div class="action-row">
+                    <button class="toggle-btn" onclick="toggleAnswer('fib-ans-${index}')">উত্তর দেখুন</button>
+                    <div class="answer-box" id="fib-ans-${index}">
+                        সঠিক উত্তর: ${item.ans} <br><small style="font-weight:normal; color:#475569;">(${item.exp})</small>
+                    </div>
+                </div>
+            `;
+            fibGrid.appendChild(fibCard);
+        });
+
+        // Render Short Questions
+        const sqGrid = document.getElementById('sq-grid');
+        sqData.forEach((item, index) => {
+            const sqCard = document.createElement('div');
+            sqCard.className = 'sq-card';
+            sqCard.innerHTML = `
+                <div>
+                    <div class="sq-title">${item.q}</div>
+                </div>
+                <div class="action-row">
+                    <button class="toggle-btn" onclick="toggleAnswer('sq-ans-${index}')">উত্তর দেখুন</button>
+                    <div class="answer-box" id="sq-ans-${index}">
+                        উত্তর: <strong>${item.a}</strong><br>
+                        <small style="font-weight:normal; color:#475569;">${item.exp}</small>
+                    </div>
+                </div>
+            `;
+            sqGrid.appendChild(sqCard);
+        });
+
+        // Toggle Functions
+        function toggleAnswer(elementId) {
+            const el = document.getElementById(elementId);
+            if (el.style.display === 'block') {
+                el.style.display = 'none';
+            } else {
+                el.style.display = 'block';
+            }
+        }
+
+        function toggleSolution(elementId) {
+            const el = document.getElementById(elementId);
+            if (el.style.display === 'block') {
+                el.style.display = 'none';
+            } else {
+                el.style.display = 'block';
+            }
+        }
+
+        // Custom Image Preview Handler
+        function previewUserImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('circle-preview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
